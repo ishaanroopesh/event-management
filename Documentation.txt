@@ -1,0 +1,58 @@
+# Start a backend for the project
+    | npm init -y |
+
+# Import dependencies
+    | npm i express dotenv mongoose |
+
+# Package.json type
+    add | "type": "module"
+
+# Run the file
+    ## Basic methodology
+        | node backend/server.js |
+
+    ## dev
+        remove test field from package.json
+        add | "dev": "node backend/server.js" |
+        use | npm run dev |
+
+    ## Nodemon
+        | npm i nodemon -D |
+        change | "dev": "nodemon backend/server.js" |
+
+# MongoDB
+    ## Create Account & project
+        create a new project and give it an appropriate name
+
+    ## Create Cluster
+        create a cluster and select the type of plan
+        select driver
+        copy the connection string and the password
+
+    ## Connection
+        store the connection string in a .env file
+        | npm i mongodb |
+        in the db.js file connect using the string | await mongoose.connect(process.env.MONGO_URI); |
+        initialise the connection in the server.js file | connectDB(); |
+
+# Start a frontend for the project
+    ## Setting up
+        run | npm create vite@latest . | in the directory
+        run | npm i |
+
+    ## Chakra-ui
+        run | npm i @chakra-ui/react @emotion/react @emotion/styled framer-motion |
+        wrap the <App /> within the <ChakraProvider></>
+
+    ## Pages & Components
+        create a folder for each
+        within components, store files related to common page elements like a navbar or other watermarks
+        within pages, store files related to seperate web pages of the website
+
+    ## packages/dependencies
+        run | npm i react-router-dom | for the Route, and Routes
+        run | npm i zustand | 
+
+
+
+http://localhost:2000/auth/google

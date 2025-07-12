@@ -1,0 +1,61 @@
+src/
+├── assets/                  # Static assets (images, icons, etc.)
+├── components/              # Reusable UI components (e.g., Navbar, EventCard)
+│   ├── Navbar.jsx           # Main navigation bar
+│   ├── Sidebar.jsx
+│   ├── BackButton.jsx
+│   ├── AddEvaluatorModal.jsx
+│   ├── AddParticipantsModal.jsx
+│   ├── ChatBox.jsx
+│   ├── StudentSidebar.jsx
+│   ├── RegistrationConfirmationModal.jsx
+│   ├── AdminEventCard.jsx
+│   ├── tables/
+├── context/                 # React Context for global state (e.g., AuthContext)
+│   ├── AuthContext.jsx 
+│   ├── AuthCallback.jsx 
+├── layouts/                 # Role-specific layouts
+│   ├── AdminLayout.jsx      # Layout for admin pages
+│   ├── EvaluatorLayout.jsx  # Layout for evaluator pages
+│   ├── StudentLayout.jsx    # Layout for student pages
+├── pages/                   # Main pages
+│   ├── admin/               # Admin-specific pages
+│   │   ├── AdminDashboard.jsx
+│   │   ├── EventCreatePage.jsx
+│   │   ├── EventUpdatePage.jsx
+│   │   ├── ManageEvaluators.jsx
+│   │   ├── StudentDetails.jsx
+│   │   ├── TeacherDetails.jsx
+│   ├── teacher/           # Evaluator-specific pages
+│   │   ├── TeacherDashboard.jsx
+│   │   ├── ScoreEntryModal.jsx
+│   │   ├── ScoreParticipant.jsx
+│   │   ├── ViewEvaluators.jsx
+│   ├── student/             # Student-specific pages
+│   │   ├── StudentDashboard.jsx
+│   │   ├── StudentEventDetail.jsx
+│   │   ├── StudentRegistrations.jsx
+│   │   ├── StudentScore.jsx
+│   ├── shared/              # Pages accessible to all roles
+│   │   ├── HomePage.jsx
+│   │   ├── LoginPage.jsx
+│   │   ├── Register.jsx
+│   │   ├── ResultsHomePage.jsx
+│   │   ├── EventDetailPage.jsx
+│   │   ├── EventResultPage.jsx
+│   │   ├── ChatPage.jsx
+├── services/                # API services
+│   ├── ProtectedRoute.jsx
+├── store/                   # State management (optional, if using Zustand or Redux)
+│   ├── event.js        # Event-related state
+│   ├── auth.js        
+│   ├── evaluator.js
+│   ├── event.js
+│   ├── participant.js
+│   ├── score.js
+│   ├── student.js
+│   ├── teacher.js
+├── utils/                   # Utility functions
+│   ├── dateFormate.jsx
+├── App.jsx                  # Main app component with routing
+├── main.jsx                 # Entry point

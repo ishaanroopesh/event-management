@@ -1,0 +1,28 @@
+{
+	"name": "cmrit_event_dev2",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"dev": "nodemon backend/serverv2.js"
+	},
+	"type": "module",
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"dotenv": "^16.4.7",
+		"exceljs": "^4.4.0",
+		"express": "^4.21.2",
+		"googleapis": "^146.0.0",
+		"jsonwebtoken": "^9.0.2",
+		"mongoose": "^8.9.6",
+		"multer": "^2.0.0",
+		"node-cron": "^4.0.7",
+		"openai": "^4.85.4",
+		"sharp": "^0.34.1"
+	},
+	"devDependencies": {
+		"nodemon": "^3.1.9"
+	}
+}
