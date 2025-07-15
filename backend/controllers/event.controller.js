@@ -205,6 +205,57 @@ export const updateEvent = async (req, res) => {
 	}
 };
 
+export const updateEventWithPoster = [
+	upload.single("poster"),
+	async (req, res) => {
+		try {
+			const { id } = req.params;
+			if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+				return res.status(400).json({ success: false, message: "Invalid event ID" });
+			}
+
+			const parsed = JSON.parse(req.body.data);
+
+			const { name, description, date, type, department, teamEvent, teamSize, criteria, registerBy } = parsed;
+
+			const updateData = {
+				name,
+				description,
+				date,
+				type,
+				department,
+				teamEvent,
+				teamSize,
+				registerBy,
+			};
+
+			// Add criteria only if present (some events don't use them)
+			if (Array.isArray(criteria)) {
+				updateData.criteria = criteria;
+			}
+
+			if (req.file) {
+				const fileBuffer = await sharp(req.file.buffer).resize(1080, 1080).jpeg().toBuffer();
+				updateData.poster = {
+					data: fileBuffer,
+					contentType: "image/jpeg",
+				};
+			}
+
+			const updatedEvent = await Event.findByIdAndUpdate(id, updateData, { new: true });
+
+			if (!updatedEvent) {
+				return res.status(404).json({ success: false, message: "Event not found" });
+			}
+
+			res.status(200).json({ success: true, data: updatedEvent });
+		} catch (error) {
+			console.error("Error updating event with poster:", error);
+			res.status(500).json({ success: false, message: "Server Error" });
+		}
+	},
+];
+
 export const getUnassignedParticipants = async (req, res) => {
 	try {
 		const { eventId } = req.params;

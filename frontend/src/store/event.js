@@ -42,6 +42,15 @@ export const useEventStore = create((set) => ({
 		return data.data;
 	},
 
+	fetchEventsLight: async () => {
+		const res = await fetch("/api/events/lightweight");
+		const data = await res.json();
+		// console.log(data);
+
+		set({ events: data.data });
+		return data.data;
+	},
+
 	fetchEventById: async (rid) => {
 		const res = await fetch(`/api/events/${rid}`);
 		const data = await res.json();
@@ -86,6 +95,20 @@ export const useEventStore = create((set) => ({
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify(updatedEvent),
+		});
+		const data = await res.json();
+		if (!data.success) {
+			return { success: false, message: data.message };
+		}
+
+		set((state) => ({ events: state.events.map((event) => (event._id === rid ? data.data : event)) }));
+		return { success: "true", message: data.message };
+	},
+
+	updateEventWithPoster: async (rid, updatedEvent) => {
+		const res = await fetch(`/api/events/${rid}`, {
+			method: "PUT",
+			body: updatedEvent,
 		});
 		const data = await res.json();
 		if (!data.success) {

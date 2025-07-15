@@ -8,12 +8,10 @@ import ProtectedRoute from "./services/ProtectedRoute.jsx";
 import AdminLayout from "./layouts/AdminLayout";
 import TeacherLayout from "./layouts/TeacherLayout.jsx";
 import StudentLayout from "./layouts/StudentLayout";
-import ParticipantTable from "./components/tables/ParticipantTable";
 import StudentTable from "./components/tables/StudentTable";
 import EventCreatePage from "./pages/admin/EventCreatePage.jsx";
 import EventUpdatePage from "./pages/admin/EventUpdatePage.jsx";
 import EventDetailPage from "./pages/shared/EventDetailPage.jsx";
-import EventCard from "./components/tables/EventCard.jsx";
 import ManageEvaluators from "./pages/admin/ManageEvaluators.jsx";
 import AddEvaluatorModal from "./components/AddEvaluatorModal.jsx";
 import TeacherTable from "./components/tables/TeacherTable.jsx";
@@ -21,18 +19,17 @@ import TeacherDetails from "./pages/admin/TeacherDetails.jsx";
 import StudentDetails from "./pages/admin/StudentDetails.jsx";
 import StudentDashboard from "./pages/student/StudentDashboard.jsx";
 import ViewEvaluators from "./pages/teacher/ViewEvaluators.jsx";
+import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 import TeacherDashboard from "./pages/teacher/TeacherDashboard.jsx";
 import StudentEventDetail from "./pages/student/StudentEventDetail.jsx";
 import StudentRegistrations from "./pages/student/StudentRegistrations.jsx";
 import ScoreParticipants from "./pages/teacher/ScoreParticipant.jsx";
 import StudentScore from "./pages/student/StudentScore.jsx";
 import ChatPage from "./pages/shared/ChatPage.jsx";
-import ChatBox from "./components/ChatBox.jsx";
 import ResultsHomePage from "./pages/shared/ResultsHomePage.jsx";
 import EventResultPage from "./pages/shared/EventResultPage.jsx";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Register from "./pages/shared/Register.jsx";
-import AdminEventCard from "./components/AdminEventCard.jsx";
 import EventListPage from "./pages/shared/Events.jsx";
 
 function App() {
@@ -124,9 +121,9 @@ function App() {
 								</ProtectedRoute>
 							}
 						>
-							<Route index element={<h2>Select a section from the sidebar</h2>} />
+							<Route index element={<AdminDashboard />} />
 
-							<Route path="home" element={<AdminEventCard />} />
+							{/* <Route path="home" element={<AdminEventCard />} /> */}
 							<Route path="events" element={<EventListPage />} />
 							<Route path="event/create" element={<EventCreatePage />} />
 							<Route path="event/:eventId" element={<EventDetailPage />} />

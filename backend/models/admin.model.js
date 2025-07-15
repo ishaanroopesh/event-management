@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { Buffer } from "buffer";
 
 const AdminSchema = new mongoose.Schema({
 	name: { type: String, required: true },
@@ -11,6 +12,10 @@ const AdminSchema = new mongoose.Schema({
 	superAdmin: {
 		type: Boolean,
 		default: false, // Set to true only for the main/global admin
+	},
+	profilePicture: {
+		data: Buffer,
+		contentType: String,
 	},
 });
 

@@ -1,8 +1,11 @@
 import mongoose from "mongoose";
+import multer from "multer";
+import sharp from "sharp";
 import Student from "../models/student.model.js";
 import Participant from "../models/participant.model.js";
 import Score from "../models/score.model.js";
 
+const upload = multer();
 export const getStudents = async (req, res) => {
 	try {
 		const students = await Student.find({});
@@ -112,7 +115,7 @@ export const getParticipationByStudent = async (req, res) => {
 				{ members: studentId }, // Team participation
 			],
 		})
-			.populate("eventId", "name date type description") // Populate event details
+			.populate("eventId", "name date type status description") // Populate event details
 			.populate("members", "name email usn") // Populate team members
 			.populate("student", "name email usn"); // Populate individual student details
 
@@ -182,5 +185,46 @@ export const checkStudentRegistration = async (req, res) => {
 	} catch (error) {
 		console.error("Error checking registration:", error);
 		res.status(500).json({ success: false, message: "Internal Server Error" });
+	}
+};
+
+export const uploadProfilePicture = [
+	upload.single("profilePicture"),
+	async (req, res) => {
+		try {
+			const { studentId } = req.body;
+			if (!req.file) {
+				return res.status(400).json({ success: false, message: "No file uploaded" });
+			}
+
+			const fileBuffer = await sharp(req.file.buffer).resize(300, 300).jpeg().toBuffer(); // Resizing to 300x300
+
+			const updatedStudent = await Student.findByIdAndUpdate(
+				studentId,
+				{ profilePicture: { data: fileBuffer, contentType: "image/jpeg" } },
+				{ new: true }
+			);
+
+			if (!updatedStudent) return res.status(404).json({ success: false, message: "Student not found" });
+
+			res.status(200).json({ success: true, message: "Profile picture uploaded successfully" });
+		} catch (error) {
+			console.error("Profile picture upload error:", error);
+			res.status(500).json({ success: false, message: "Server Error" });
+		}
+	},
+];
+
+export const getProfilePicture = async (req, res) => {
+	const { studentId } = req.params;
+	try {
+		const student = await Student.findById(studentId);
+		if (!student || !student.profilePicture?.data) {
+			return res.status(404).send("Profile picture not found");
+		}
+		res.set("Content-Type", student.profilePicture.contentType);
+		res.send(student.profilePicture?.data);
+	} catch (error) {
+		res.status(500).send("Failed to fetch profile picture");
 	}
 };

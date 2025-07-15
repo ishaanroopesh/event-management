@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 import { Buffer } from "buffer";
+import Participant from "./participant.model.js";
+import Score from "./score.model.js";
+import Evaluator from "./evaluator.model.js";
 
 const EventSchema = new mongoose.Schema({
 	name: { type: String, required: true },
@@ -64,6 +67,33 @@ const EventSchema = new mongoose.Schema({
 			contentType: String,
 		},
 	},
+});
+
+EventSchema.pre("findOneAndDelete", async function (next) {
+	try {
+		const eventId = this.getQuery()._id;
+
+		// Delete all participants related to the event
+		const participants = await Participant.find({ eventId });
+
+		const participantIds = participants.map((p) => p._id);
+
+		// Delete participants
+		await Participant.deleteMany({ eventId });
+
+		// Delete all evaluators related to the event
+		const evaluators = await Evaluator.find({ eventId });
+
+		const evaluatorIds = evaluators.map((e) => e._id);
+		await Evaluator.deleteMany({ eventId });
+		// Delete related scores
+		await Score.deleteMany({ participantId: { $in: participantIds } });
+		await Score.deleteMany({ evaluatorId: { $in: evaluatorIds } });
+
+		next();
+	} catch (err) {
+		next(err);
+	}
 });
 
 const Event = mongoose.model("Event", EventSchema);

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { Buffer } from "buffer";
 
 const TeacherSchema = new mongoose.Schema({
 	name: {
@@ -14,6 +15,10 @@ const TeacherSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		enum: ["CSE", "ISE", "ECE", "AIML", "AIDS", "CSAIML", "CSDS"], // Add or adjust based on your college
+	},
+	profilePicture: {
+		data: Buffer,
+		contentType: String,
 	},
 });
 

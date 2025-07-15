@@ -195,7 +195,7 @@ const EventCreatePage = () => {
 			} else {
 				setSuccess("Event created successfully! Redirecting...");
 				setTimeout(() => {
-					navigate(role === "admin" ? "/admin/home" : "/teacher");
+					navigate(role === "admin" ? "/admin" : "/teacher");
 				}, 1500);
 			}
 		} catch (err) {

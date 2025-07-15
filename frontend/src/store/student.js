@@ -96,4 +96,33 @@ export const useStudentStore = create((set) => ({
 		set((state) => ({ students: state.students.map((student) => (student._id === studentId ? data.data : student)) }));
 		return { success: "true", message: data.message };
 	},
+
+	uploadProfilePicture: async (studentId, file) => {
+		try {
+			const formData = new FormData();
+			formData.append("studentId", studentId);
+			formData.append("profilePicture", file);
+
+			const res = await fetch("/api/students/upload-profile-picture", {
+				method: "PUT",
+				body: formData,
+			});
+
+			const data = await res.json();
+
+			if (!res.ok) {
+				return { success: false, message: data.message || "Profile picture upload failed" };
+			}
+
+			return { success: true, message: "Profile picture uploaded successfully" };
+		} catch (error) {
+			console.error("Error in uploadProfilePicture:", error);
+			return { success: false, message: "An unexpected client-side error occurred." };
+		}
+	},
+
+	getProfilePicture: async (studentId) => {
+		const res = await fetch(`/api/students/profile-picture/${studentId}`);
+		return res;
+	},
 }));

@@ -31,7 +31,7 @@ const Sidebar = () => {
 
 	const menuItems = {
 		admin: [
-			{ text: "Home", path: "/admin/home", icon: <HomeIcon /> },
+			{ text: "Home", path: "/admin", icon: <HomeIcon /> },
 			{ text: "Events", path: "/admin/events", icon: <EventIcon /> },
 			{ text: "Teachers", path: "/admin/teachers", icon: <PeopleIcon /> },
 			{ text: "Students", path: "/admin/students", icon: <SchoolIcon /> },
